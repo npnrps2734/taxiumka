@@ -4,11 +4,15 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.KeyEvent
+import android.view.View
 import android.webkit.GeolocationPermissions
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -16,10 +20,12 @@ import androidx.core.content.ContextCompat
 // Адрес сервера зашит в приложении — пользователь его не меняет и не видит.
 private const val SERVER_URL = "https://umkatax.ru"
 private const val LOCATION_PERMISSION_REQUEST = 1001
+private const val SPLASH_DELAY_MS = 1000L
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var webView: WebView
+    private lateinit var splashOverlay: ImageView
     private var pendingGeoOrigin: String? = null
     private var pendingGeoCallback: GeolocationPermissions.Callback? = null
 
@@ -27,6 +33,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        splashOverlay = findViewById(R.id.splashOverlay)
+        Handler(Looper.getMainLooper()).postDelayed({
+            splashOverlay.visibility = View.GONE
+        }, SPLASH_DELAY_MS)
 
         webView = findViewById(R.id.webView)
         webView.settings.javaScriptEnabled = true
