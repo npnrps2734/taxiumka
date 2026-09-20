@@ -5,4 +5,10 @@
         <item name="colorAccent">#FFCC33</item>
         <item name="android:windowBackground">#000000</item>
     </style>
+
+    <style name="Theme.TaxiApp.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">#000000</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher_foreground</item>
+        <item name="postSplashScreenTheme">@style/Theme.TaxiApp</item>
+    </style>
 </resources>
