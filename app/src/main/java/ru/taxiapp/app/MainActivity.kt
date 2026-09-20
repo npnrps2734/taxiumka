@@ -19,7 +19,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 // Адрес сервера зашит в приложении — пользователь его не меняет и не видит.
 private const val SERVER_URL = "https://umkatax.ru"
 private const val LOCATION_PERMISSION_REQUEST = 1001
-private const val SPLASH_DELAY_MS = 1000L
+private const val SPLASH_DELAY_MS = 1500L
 
 class MainActivity : AppCompatActivity() {
 
