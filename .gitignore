@@ -1,0 +1,15 @@
+# Секреты — никогда не должны попасть в git
+*.keystore.jks
+*.jks
+*.keystore
+KEYSTORE_SECRETS.txt
+release.keystore.b64.txt
+local.properties
+keystore.properties
+
+# Стандартные Android/Gradle артефакты сборки
+.gradle/
+build/
+app/build/
+*.iml
+.idea/
