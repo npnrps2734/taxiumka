@@ -7,15 +7,14 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.KeyEvent
-import android.view.View
 import android.webkit.GeolocationPermissions
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 
 // Адрес сервера зашит в приложении — пользователь его не меняет и не видит.
 private const val SERVER_URL = "https://umkatax.ru"
@@ -25,18 +24,22 @@ private const val SPLASH_DELAY_MS = 1000L
 class MainActivity : AppCompatActivity() {
 
     private lateinit var webView: WebView
-    private lateinit var splashOverlay: ImageView
     private var pendingGeoOrigin: String? = null
     private var pendingGeoCallback: GeolocationPermissions.Callback? = null
 
+    // Держим системную заставку (иконка UMKA на чёрном фоне) на экране
+    // ровно SPLASH_DELAY_MS, затем она сама плавно исчезает.
+    private var keepSplashOnScreen = true
+
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
+        val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        splashOverlay = findViewById(R.id.splashOverlay)
+        splashScreen.setKeepOnScreenCondition { keepSplashOnScreen }
         Handler(Looper.getMainLooper()).postDelayed({
-            splashOverlay.visibility = View.GONE
+            keepSplashOnScreen = false
         }, SPLASH_DELAY_MS)
 
         webView = findViewById(R.id.webView)
